@@ -2,10 +2,10 @@
 
 Installation: 
 
-<br />1, install ns3 https://www.nsnam.org/wiki/Installation <br />
-<br />2, create module with name dctest: ns-allinone-3.23/ns-3.23/src$ ./create-module.py dctest <br />
-<br />3, ./waf configure <br />
-<br />4, download code, put folder dctest into ns-allinone-3.23/ns-3.23/src <br />
+<br />1, install ns3 https://www.nsnam.org/wiki/Installation 
+<br />2, create module with name dctest: ns-allinone-3.23/ns-3.23/src$ ./create-module.py dctest
+<br />3, ./waf configure 
+<br />4, download code, put folder dctest into ns-allinone-3.23/ns-3.23/src 
 <br />5, ./waf configure && ./waf
 <br />6, download code, put DisCompSimulator.cc into ns-allinone-3.23/ns-3.23/scratch
 <br />7, ./waf 
