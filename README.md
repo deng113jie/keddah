@@ -1,17 +1,17 @@
 # keddah - Hadoop Traffic Generator
 
-Installation:
+Installation: 
 
-1, install ns3 https://www.nsnam.org/wiki/Installation \\
-2, create module with name dctest: ns-allinone-3.23/ns-3.23/src$ ./create-module.py dctest
-3, ./waf configure
-4, download code, put folder dctest into ns-allinone-3.23/ns-3.23/src
-5, ./waf configure && ./waf
-6, download code, put DisCompSimulator.cc into ns-allinone-3.23/ns-3.23/scratch
-7, ./waf 
+<br />1, install ns3 https://www.nsnam.org/wiki/Installation <br />
+<br />2, create module with name dctest: ns-allinone-3.23/ns-3.23/src$ ./create-module.py dctest <br />
+<br />3, ./waf configure <br />
+<br />4, download code, put folder dctest into ns-allinone-3.23/ns-3.23/src <br />
+<br />5, ./waf configure && ./waf
+<br />6, download code, put DisCompSimulator.cc into ns-allinone-3.23/ns-3.23/scratch
+<br />7, ./waf 
 
-Run:
-NS_LOG='TeraSort:Kmeans' ./waf --run "scratch/DisCompSimulator --tracejob=500 --stop_time=1300 --network=1 --job_rate=6 --ftnodnum=$i"
+<br />Run:
+<br />NS_LOG='TeraSort:Kmeans' ./waf --run "scratch/DisCompSimulator --tracejob=500 --stop_time=1300 --network=1 --job_rate=6 --ftnodnum=$i"
 
     --filesize:   Size of data file need to be sort. [3000000000]
     --tracejob:   Which job to trace. [100]
