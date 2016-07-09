@@ -2,7 +2,7 @@
 
 Installation:
 
-1, install ns3 https://www.nsnam.org/wiki/Installation
+1, install ns3 https://www.nsnam.org/wiki/Installation \\
 2, create module with name dctest: ns-allinone-3.23/ns-3.23/src$ ./create-module.py dctest
 3, ./waf configure
 4, download code, put folder dctest into ns-allinone-3.23/ns-3.23/src
