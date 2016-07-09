@@ -1,6 +1,7 @@
 # keddah - Hadoop Traffic Generator
 
 Installation:
+
 1, install ns3 https://www.nsnam.org/wiki/Installation
 2, create module with name dctest: ns-allinone-3.23/ns-3.23/src$ ./create-module.py dctest
 3, ./waf configure
