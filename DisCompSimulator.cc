@@ -22,7 +22,7 @@ using namespace std;
 int
 main (int argc, char *argv[])
 {
-    long filesize=3000000000;
+    long filesize=2000000000;
     int network_type=0;
    // bool nullmsg = false;
     int fattree_nodesperpod=8;
@@ -37,36 +37,19 @@ main (int argc, char *argv[])
    // cmd.AddValue ("nullmsg", "Enable the use of null-message synchronization", nullmsg);
     cmd.Parse (argc,argv);
 
-//    if(nullmsg)
-//    {
-//        GlobalValue::Bind ("SimulatorImplementationType",
-//                           StringValue ("ns3::NullMessageSimulatorImpl"));
-//    }
-//    else
-//    {
-//        GlobalValue::Bind ("SimulatorImplementationType",
-//                           StringValue ("ns3::DistributedSimulatorImpl"));
-//    }
+  GlobalValue::Bind ("SimulatorImplementationType", StringValue ("ns3::RealtimeSimulatorImpl"));
+ 
+ 
 
-// Enable parallel simulator with the command line arguments
-    //  MpiInterface::Enable (&argc, &argv);
-    //uint32_t systemId = MpiInterface::GetSystemId ();
-
-    uint32_t systemCount =1;
-//    if(MpiInterface::IsEnabled())
-//    {
-//        systemCount = MpiInterface::GetSize ();
-//    }
-
-
+std::set< Ptr<SystemThread> > threadstorun;
     if(network_type==0)
     {
-        // StarTopo star(8);
-        StarTopo star(15,systemCount); //mpi approach
+         StarTopo star(15);
+        //StarTopo star(15,systemCount); //mpi approach
         Cluster cst (star);
         //Create the application
         HadoopYarn yarn (cst);
-        yarn.StartJob(filesize,CONFIG::TRACE_JOB,CONFIG::JOB_RATE);
+        threadstorun=yarn.StartJob(filesize,CONFIG::TRACE_JOB,CONFIG::JOB_RATE);
     }
     else if(network_type==1)
     {
@@ -77,17 +60,17 @@ main (int argc, char *argv[])
         Cluster cst (fattree);
         //Create the application
         HadoopYarn yarn (cst);
-        yarn.StartJob(filesize,CONFIG::TRACE_JOB,CONFIG::JOB_RATE);
+        threadstorun=yarn.StartJob(filesize,CONFIG::TRACE_JOB,CONFIG::JOB_RATE);
     }
     else if(network_type==2)
     {
-        DCell dcell(2,3);
+        DCell dcell(2,2);
         dcell.setup();
         //dcell.setup(systemCount);
         Cluster cst (dcell);
         //Create the application
         HadoopYarn yarn (cst);
-        yarn.StartJob(filesize,CONFIG::TRACE_JOB,CONFIG::JOB_RATE);
+        threadstorun=yarn.StartJob(filesize,CONFIG::TRACE_JOB,CONFIG::JOB_RATE);
     }
     else if(network_type==3)
     {
@@ -97,7 +80,7 @@ main (int argc, char *argv[])
         Cluster cst (cc);
         //Create the application
         HadoopYarn yarn (cst);
-        yarn.StartJob(filesize,CONFIG::TRACE_JOB,CONFIG::JOB_RATE);
+        threadstorun=yarn.StartJob(filesize,CONFIG::TRACE_JOB,CONFIG::JOB_RATE);
     }
 
 
@@ -106,10 +89,11 @@ main (int argc, char *argv[])
    // FlowMonitorHelper flowmonHelper;
    // flowmonHelper.InstallAll();
 
-
     Simulator::Stop (Seconds (CONFIG::SIM_STOP));
     Simulator::Run ();
-
+    for(std::set< Ptr<SystemThread> >::iterator it=threadstorun.begin();it!=threadstorun.end();it++){
+        (*it)->Join();
+    }
   //  stringstream ss;
   //  ss<< "flowmonitor_"<<network_type<<"_"<<CONFIG::JOB_RATE<<"_"<<CONFIG::LINKTRADOFF<<"_"<<fattree_nodesperpod<<".txt";
   //  flowmonHelper.SerializeToXmlFile (ss.str(), true, true);

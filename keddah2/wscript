@@ -1,0 +1,59 @@
+# -*- Mode: python; py-indent-offset: 4; indent-tabs-mode: nil; coding: utf-8; -*-
+
+# def options(opt):
+#     pass
+
+# def configure(conf):
+#     conf.check_nonfatal(header_name='stdint.h', define_name='HAVE_STDINT_H')
+
+def build(bld):
+    module = bld.create_ns3_module('keddah2', ['core'])
+    module.source = [
+        'model/keddah2.cc',
+        'model/DCTopology.cc',
+        'model/CamCube.cc',
+        'model/DCell.cc',
+        'model/FatTree.cc',
+        'model/StarTopo.cc',
+        'model/Cluster.cc',
+        'model/CONFIG.cc',
+        'model/HadoopYarn.cc',
+        'model/YarnScheduler.cc',
+        'model/HadoopJob.cc',
+        'model/JobPara.cc',
+        'model/TeraSort.cc',
+        'model/MyApp.cc',
+        'model/Kmeans.cc',
+        ]
+
+   # module_test = bld.create_ns3_module_test_library('keddah2')
+   # module_test.source = [
+   #     'test/keddah2-test-suite.cc',
+   #     ]
+
+
+    headers = bld(features='ns3header')
+    headers.module = 'keddah2'
+    headers.source = [
+        'model/keddah2.h',
+        'model/DCTopology.h',
+        'model/CamCube.h',
+        'model/DCell.h',
+        'model/FatTree.h',
+        'model/StarTopo.h',
+        'model/Cluster.h',
+        'model/CONFIG.h', 
+        'model/HadoopYarn.h',
+        'model/YarnScheduler.h',
+        'model/HadoopJob.h',
+        'model/JobPara.h',
+        'model/TeraSort.h',
+        'model/MyApp.h',
+        'model/Kmeans.h',
+        ]
+
+    #if bld.env.ENABLE_EXAMPLES:
+     #   bld.recurse('examples')
+
+    # bld.ns3_python_bindings()
+
